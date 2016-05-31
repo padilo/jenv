@@ -1,7 +1,7 @@
 #export
 
-
- _jenv_export_hook() {
+_jenv_export_hook() {
+  ERRCODE=$?
   export JAVA_HOME=$(jenv javahome)
   export JENV_FORCEJAVAHOME=true
 
@@ -10,7 +10,8 @@
     export JDK_HOME=$(jenv javahome)
     export JENV_FORCEJDKHOME=true
   fi
-   }
+  $(exit $ERRCODE)
+}
 
 if ! [[ "$PROMPT_COMMAND" =~ _jenv_export_hook ]]; then
     PROMPT_COMMAND="_jenv_export_hook;$PROMPT_COMMAND";
